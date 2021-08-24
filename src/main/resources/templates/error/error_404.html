@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>404 Not Found</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/styles/exception.css}" />
+</head>
+<body>
+	<div class="error-wrapper">
+
+		<div class="error-text-container">
+			<div class="title">
+				<h1 class="title-text">Hmph... nothing here</h1>
+			</div>
+			<div class="error-short-desc">&emsp;What you are looking for is
+				no longer here or it has never existed.</div>
+			<div class="error-cta">
+				&emsp;Get back
+				<a th:href="@{/}" id="home"> Home</a>
+				&nbsp;and&nbsp;
+				<a th:href="@{/design}" id="another">Get yourself a taco</a>
+				or two.
+			</div>
+		</div>
+
+		<div class="error-pic-container">
+			<img alt="A castaway on a tiny desert island"
+				th:src="@{/images/e404.png}" />
+		</div>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Taco Cloud</title>
+</head>
+
+<body>
+	<h1>Fill in your details</h1>
+	<img alt="Red-brown feather quill and ink"
+		th:src="@{/images/quill_register.png}">
+
+	<form method="POST" th:action="@{/register}"
+		th:object="${registrationForm}" id="registerForm">
+
+		<!-- Cross-site request forgery (CSRF) protection | Spring  Security built-in CSRF protection. -->
+		<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+		<label for="username">Username: </label>
+		<input type="text" th:field="*{username}" name="username" />
+		<span th:each="err : ${#fields.errors('username')}"
+			th:text="' * ' + ${err}">User Name Error</span>
+		<!--  
+		<span class="validationError" th:if="${#fields.hasErrors('username')}"
+			th:errors="*{username}">User Name Error</span>
+			-->
+		<br>
+
+		<label for="password">Password: </label>
+		<input type="password" th:field="*{password}" name="password" />
+		<span class="validationError" th:if="${#fields.hasErrors('password')}"
+			th:errors="*{password}">Password Error</span>
+		<br />
+
+		<label for="confirm">Confirm password: </label>
+		<input type="password" th:field="*{confirm}" name="confirm" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('confirm')} and !${#fields.hasErrors('password')}"
+			th:errors="*{confirm}">Match Error</span>
+		<br>
+
+		<label for="fullname">Full name: </label>
+		<input type="text" th:field="*{fullname}" name="fullname" />
+		<span class="validationError" th:if="${#fields.hasErrors('fullname')}"
+			th:errors="*{fullname}">Name Error</span>
+		<br>
+
+		<label for="street">Street: </label>
+		<input type="text" th:field="*{street}" name="street" />
+		<span class="validationError" th:if="${#fields.hasErrors('street')}"
+			th:errors="*{street}">Street Error</span>
+		<br>
+
+		<label for="city">City: </label>
+		<input type="text" th:field="*{city}" name="city" />
+		<span class="validationError" th:if="${#fields.hasErrors('city')}"
+			th:errors="*{city}">City Error</span>
+		<br>
+
+		<label for="state">State: </label>
+		<input type="text" th:field="*{state}" name="state" />
+		<span class="validationError" th:if="${#fields.hasErrors('state')}"
+			th:errors="*{state}">State Error</span>
+		<br>
+
+		<label for="zip">ZIP Code: </label>
+		<input type="text" th:field="*{zip}" name="zip" />
+		<span class="validationError" th:if="${#fields.hasErrors('zip')}"
+			th:errors="*{zip}">ZIP Code Error</span>
+		<br>
+
+		<label for="phoneNumber">Phone Number: </label>
+		<input type="text" th:field="*{phoneNumber}" name="phoneNumber" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('phoneNumber')}"
+			th:errors="*{phoneNumber}">Phone Number Error</span>
+		<br>
+
+		<input type="submit" value="Register" />
+
+	</form>
+
+</body>
+</html>

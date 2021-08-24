@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Taco Cloud</title>
+</head>
+<body>
+	<h1>Welcome to ...</h1>
+
+	<img alt="Tacos, Project Logo" th:src="@{/images/mex_home.png}" />
+
+	<a th:href="@{/design}" id="another">Design your taco!</a>
+
+	<div sec:authorize="isAuthenticated()">
+		<form method="POST" th:action="@{/logout}" id="logoutForm">
+			<input type="submit" value="Logout" />
+			<!-- Cross-site request forgery (CSRF) protection | Spring  Security built-in CSRF protection. -->
+			<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+		</form>
+	</div>
+
+	<div class="logout-mssg"
+		th:if="${param.logout_success} and ${session.isEmpty()}">
+		<p>You have been logged out.</p>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>401 Unauthorized</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/styles/exception.css}" />
+</head>
+<body>
+	<div class="error-wrapper">
+
+		<div class="error-text-container">
+			<div class="title">
+				<h1 class="title-text">'What the hell are you doing out here,
+					Fred?!'</h1>
+			</div>
+			<div class="error-short-desc">&emsp;You are not authorized to
+				access this page.</div>
+			<div class="error-cta">
+				<ul>
+					<li>
+						Try to
+						<a th:href="@{/login}" id="login">log into your account</a>
+						<br>
+						&ensp;
+						<em>If you are already logged in please log out and log in
+							again.</em>
+					</li>
+					<li>
+						If you do not have an account yet
+						<a th:href="@{/register}" id="register">create one</a>
+						now.
+					</li>
+				</ul>
+				<div class="cta-home">
+					&emsp;
+					<a th:href="@{/}" id="home">Home page</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="error-pic-container">
+			<img alt="Fingerprint, partly consisting of binary digits" th:src="@{/images/e401.png}" />
+		</div>
+
+	</div>
+</body>
+</html>

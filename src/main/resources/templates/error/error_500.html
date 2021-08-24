@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>500 Internal Server Error</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/styles/exception.css}" />
+</head>
+<body>
+	<div class="error-wrapper">
+
+		<div class="error-text-container">
+			<div class="title">
+				<h1 class="title-text">Something isn't quite right</h1>
+			</div>
+			<div class="error-short-desc">&emsp;We are sorry for the
+				inconvenience. Our expert is looking into the issue.</div>
+			<div class="error-cta">
+				&emsp;Get back
+				<a th:href="@{/}" id="home"> Home</a>
+				&nbsp;and&nbsp;
+				<a th:href="@{/design}" id="another">Get yourself a taco</a>
+				or two.
+			</div>
+		</div>
+
+		<div class="error-pic-container">
+			<img
+				alt="Astounded, friendly looking monkey in a space suit with a wrench in its hand"
+				th:src="@{/images/e500.png}" />
+		</div>
+
+	</div>
+</body>
+</html>

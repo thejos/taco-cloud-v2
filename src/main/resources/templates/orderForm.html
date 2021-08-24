@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Taco Cloud</title>
+<!-- <link rel="stylesheet" th:href="@{/style.css}" /> -->
+</head>
+
+<body>
+
+	<form method="POST" th:action="@{/orders}" th:object="${tacoOrder}">
+
+		<!-- Cross-site request forgery (CSRF) protection | Spring  Security built-in CSRF protection. -->
+		<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+		<h1>Order your taco creations!</h1>
+		<img alt="Young woman in traditional Mexican dress"
+			th:src="@{/images/mex_order.png}" />
+		<a th:unless="${#lists.isEmpty(tacoOrder.getTacos())}"
+			th:href="@{/design}" id="another">Design another taco</a>
+		<br>
+
+		<h3>Deliver my taco to ...</h3>
+
+		<label for="deliveryName">Name: </label>
+		<input type="text" th:field="*{deliveryName}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('deliveryName')}"
+			th:errors="*{deliveryName}">Delivery Name Error</span>
+		<br>
+		<label for="deliveryStreet">Street address: </label>
+		<input type="text" th:field="*{deliveryStreet}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('deliveryStreet')}"
+			th:errors="*{deliveryStreet}">Street address Error</span>
+		<br>
+		<label for="deliveryCity">City: </label>
+		<input type="text" th:field="*{deliveryCity}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('deliveryCity')}"
+			th:errors="*{deliveryCity}">Delivery City Error</span>
+		<br>
+		<label for="deliveryState">State: </label>
+		<input type="text" th:field="*{deliveryState}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('deliveryState')}"
+			th:errors="*{deliveryState}">Delivery State Error</span>
+		<br>
+		<label for="deliveryZip">Zip code: </label>
+		<input type="text" th:field="*{deliveryZip}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('deliveryZip')}"
+			th:errors="*{deliveryZip}">Zip Code Error</span>
+		<br>
+
+		<h3>Here's how I'll pay ...</h3>
+
+		<label for="ccNumber">Credit Card #: </label>
+		<input type="text" th:field="*{ccNumber}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError" th:if="${#fields.hasErrors('ccNumber')}"
+			th:errors="*{ccNumber}">CC Number Error</span>
+		<br>
+		<label for="ccExpiration">Expiration: </label>
+		<input type="text" th:field="*{ccExpiration}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError"
+			th:if="${#fields.hasErrors('ccExpiration')}"
+			th:errors="*{ccExpiration}">Expiration Date Error</span>
+		<br>
+		<label for="ccCVV">CVV: </label>
+		<input type="text" th:field="*{ccCVV}"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+		<span class="validationError" th:if="${#fields.hasErrors('ccCVV')}"
+			th:errors="*{ccCVV}">CVV Error</span>
+		<br>
+
+		<input type="submit" value="Place an Order"
+			th:disabled="${#lists.isEmpty(tacoOrder.getTacos())}" />
+
+		<span th:if="${#lists.isEmpty(tacoOrder.getTacos())}">
+			<i>* Order cannot be placed. No tacos designed.</i>
+		</span>
+
+		<div th:if="${#lists.isEmpty(tacoOrder.getTacos())}">
+			<br>
+			<a th:href="@{/design}" id="anotherTaco">Design your taco!</a>
+			&nbsp;
+			<a th:href="@{/}" id="home">Home</a>
+		</div>
+	</form>
+</body>
+</html>

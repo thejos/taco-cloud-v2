@@ -1,0 +1,28 @@
+* {
+	box-sizing: border-box;
+}
+
+.error-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	padding: 40px 0px 0px 0px;
+	/*radial gradient color hex value: #e6e7ff;*/
+	background: radial-gradient(circle at 50% 50%, rgba(230, 231, 255, .5),
+		rgba(230, 231, 255, 0) 80.71%);
+}
+
+.error-cta {
+	margin-top: 6px;
+}
+
+.cta-home {
+	margin-top: 22px;
+}
+
+li {
+	margin-top: 10px;
+	margin-left: 0px;
+	line-height: 1.2;
+}

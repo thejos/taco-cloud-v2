@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Taco Cloud</title>
+</head>
+
+<body>
+
+	<h1>Log into your Taco account</h1>
+
+	<img alt="An abstract access control gear mechanism"
+		th:src="@{/images/cog_login.png}">
+
+	<p>
+		First time here?
+		<a th:href="@{/register}">Create</a>
+		your Taco account!
+	</p>
+
+	<form method="POST" th:action="@{/login}" id="loginForm">
+
+		<!-- Cross-site request forgery (CSRF) protection | Spring  Security built-in CSRF protection. -->
+		<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+		<label for="username">Username: </label>
+		<input type="text" name="username" id="username" />
+		<br>
+		<label for="password">Password: </label>
+		<input type="password" name="password" id="password" />
+		<br>
+		<input type="submit" value="Login" />
+	</form>
+
+	<div th:if="${param.error}">
+		<p>Unable to login. Check your username and password.</p>
+	</div>
+
+</body>
+</html>
