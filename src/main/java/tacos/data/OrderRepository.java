@@ -1,8 +1,12 @@
 package tacos.data;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import tacos.model.bean.TacoOrder;
+import tacos.model.bean.User;
 
 /**
  * The CrudRepository interface provides sophisticated CRUD functionality for
@@ -32,7 +36,7 @@ public interface OrderRepository extends CrudRepository<TacoOrder, Long> {
 	// Spring Data examines any methods in the repository interface, parses the
 	// method name, and attempts to understand the method’s purpose in the context
 	// of the persisted object (a TacoOrder, in this case). In essence, Spring Data
-	// definesTacoOrdera sort of miniature domain-specific language (DSL) where
+	// defines a sort of miniature domain-specific language (DSL) where
 	// persistence details are expressed in repository method signatures.
 
 	// Spring Data knows that this method is intended to find Orders because
@@ -65,5 +69,20 @@ public interface OrderRepository extends CrudRepository<TacoOrder, Long> {
 	// Chapter 3: Working with data;
 	// page 89;
 	// Book version: MEAP;
+	// ---------------------------------------------------------------------------------
+
+	/**
+	 * Method is named with a clause of <tt>OrderByDateOrderPlacedDesc</tt>. The
+	 * <tt>OrderBy</tt> portion specifies a property by which the results will be
+	 * ordered - in this case the <tt>dateOrderPlaced</tt> property
+	 * (<tt>TacoOrder</tt> attribute). The <tt>Desc</tt> at the end causes the
+	 * ordering to be in descending order. Therefore, the list of orders returned
+	 * will be sorted most recent to least recent.
+	 * 
+	 * @param user
+	 * @param pageable
+	 * @return <b>List</b> - list of orders created by a user
+	 */
+	List<TacoOrder> findByUserOrderByDateOrderPlacedDesc(User user, Pageable pageable);
 
 }

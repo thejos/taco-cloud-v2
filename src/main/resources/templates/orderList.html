@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Taco Cloud</title>
+<!-- <link rel="stylesheet" th:href="@{/styles.css}" /> -->
+</head>
+
+<body>
+
+	<h1>Your orders</h1>
+	<ul>
+		<li th:each="tacoOrder : ${orders}">
+			<span th:text="|${tacoOrder.dateOrderPlaced} / |">Date</span>
+			<span th:text="${tacoOrder.deliveryName}">Delivery Name</span>
+			<ul>
+				<li th:each="taco : ${tacoOrder.tacos}">
+					<span th:text="${taco.name} + ':'"></span>
+					<span th:each="ingredient : ${taco.ingredients}">
+						<span th:text="${ingredient.name} + ','">Ingredient</span>
+					</span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+
+</body>
+
+</html>

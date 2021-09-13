@@ -5,8 +5,11 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +39,8 @@ public class OrderController {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private TacoOrderProperties tacoOrderProperties;
 
 	private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -81,7 +86,7 @@ public class OrderController {
 
 	/*-
 	 * // Uncomment, fix imports...
-	 * // if user types URL to navigate to '/orders/current' page, this method
+	 * // when user types URL to navigate to '/orders/current' page, this method
 	 * // creates session attribute 'tacoOrder' and prevents error:
 	 * // '500: Expected session attribute 'tacoOrder''
 	 * @ModelAttribute(name = "tacoOrder")
@@ -96,7 +101,7 @@ public class OrderController {
 	 *}
 	 */
 
-	// prevents '405: Request method 'GET' not supported' error if
+	// prevents '405: Request method 'GET' not supported' error when
 	// user types URL to navigate to '/orders' page
 	@GetMapping
 	public String processOrder() {
@@ -156,6 +161,25 @@ public class OrderController {
 
 		sessionStatus.setComplete();
 		return "redirect:/";
+	}
+
+	/**
+	 * Lists the authenticated user’s past orders.<br>
+	 * Number of orders displayed is limited by <tt>pageSize</tt> property. The
+	 * property can be configured via <tt>application.properties</tt> file (e.g.
+	 * <tt>taco.orders.pageSize</tt>=10).
+	 * 
+	 * @param user
+	 * @param model
+	 * @return <b>String</b> - the value returned indicates a view that will be
+	 *         shown to the user.
+	 */
+	@GetMapping(path = "/history")
+	public String ordersForUser(@AuthenticationPrincipal User user, Model model) {
+		Pageable pageable = PageRequest.of(0, tacoOrderProperties.getPageSize());
+		model.addAttribute("orders", orderRepository.findByUserOrderByDateOrderPlacedDesc(user, pageable));
+
+		return "orderList";
 	}
 
 }
